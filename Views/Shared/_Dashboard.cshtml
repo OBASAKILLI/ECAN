@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @using Newtonsoft.Json
+    @using KILI.Session;
+    @using Microsoft.AspNetCore.Http
+    @inject IHttpContextAccessor HttpContextAccessor
+
+    <link href="~/Syncfussion/styles/material.css" rel="stylesheet" />
+    <script src="~/Syncfussion/scripts/ej2.min.js"></script>
+    <link href="~/css/Scrollbar.css" rel="stylesheet" />
+    <meta name="msapplication-navbutton-color" content="white">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="theme-color" content="white">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="white">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+
+    <link rel="stylesheet" href="~/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="~/dist/css/skins/skin-blue.min.css">
+    <script src="~/dist/js/JavaScript.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <link href="~/Printer/print.min.css" rel="stylesheet" />
+    <script src="~/Printer/print.min.js"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ECAN_CRF</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+</head>
+<style>
+    .page {
+        background-color: #e5e5f7;
+        background-image: radial-gradient(#444cf7 0.5px, #FEF9F2 0.5px);
+        background-size: 10px 10px;
+    }
+
+    .bottom {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
+
+@{
+    var nametwyqwtq = HttpContextAccessor.HttpContext.Session.GetString("Name");
+}
+
+<body class="hold-transition skin-blue sidebar-mini  text-black  ">
+    <div class="page">
+        <header class="main-header">
+            <a href="#" class="logo" style="background-color:white">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini">  <img src="~/Icons/ECAN_CRF.jpeg" style="width:auto;height:30px;" class="user-image" alt="F"></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg" style="color:black">
+                    <img src="~/Icons/ECAN_CRF.jpeg" style="width:auto;height:50px;" class="user-image" alt="F">
+                    ECAN CRF
+                </span>
+            </a>
+
+        </header>
+
+        <style>
+            .Categoryyy {
+                color: black;
+            }
+
+                .Categoryyy:hover {
+                    border-left: solid 3px black;
+                }
+        </style>
+
+        <partial name="_DshboardsideMenu" />
+        <div style="padding-left:24px;padding-right:24px;padding-top:4px;padding-bottom:4px;background-color:#0f256e">
+            <div class="row">
+                <div class="col-sm-6 col-6 text-left">
+                    <img data-toggle="push-menu" style="height:30px;width:30px" src="~/Icons/menu(2).png" />
+                </div>
+                <div class="col-sm-6 col-6 text-right">
+                    <a class="dropdown-toggle "
+                       href="#"
+                       id="navbarDropdownMenuLink"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-expanded="false">
+                        <img src="~/Icons/ProfilePic.png"
+                             class="rounded-circle"
+                             height="22"
+                             onerror="this.src='/Icons/ProfilePic.png'"
+                             style="border:solid 2px white"
+                             alt=""
+                             loading="lazy" />
+                        <span style="font-family:Calibri;color:white">@nametwyqwtq</span>
+                    </a>
+                    <ul style="background-color:white;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);font-family:Calibri" class="dropdown-menu">
+                        @*<li><a class="dropdown-item" asp-action="MyAccount" asp-controller="Home">Profile</a></li>
+
+                        <li><a class="dropdown-item" asp-action="Settings" asp-controller="customer_Home">Settings</a></li>*@
+                        <li class="dropdown-header">
+                            <a asp-action="Logoff" style="color:red" asp-controller="Home">  Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content-wrapper page" style="font-family:'Century Gothic ';font-size:small;">
+            <div style="background-color:#0f256e;">
+                <div style="height:unset;border-top-left-radius:30px;border-top-right-radius:30px;padding-top:24px;" class="page">
+
+
+                    @RenderBody()
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+        @*<footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2021 - CONNIE - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
+
+
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+            })()
+        </script>
+        <div class="footer">
+            <footer class="main-footer" style="background-color:#0f256e;margin-top:8px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3  col-6 ">
+                            <div style="padding:8px">
+                                <div style="padding:8px;color:coral;font-size:large">
+                                    <strong>
+                                        Contact
+                                    </strong>
+                                </div>
+                                <div style="font-size:small;padding:4px;color:white">   @ECAN_CRF.Controllers.HomeController.FirstTell</div>
+                                <div style="font-size:small;padding:4px;color:white">   @ECAN_CRF.Controllers.HomeController.businessemail</div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3  col-6 ">
+                            <div style="padding:8px">
+                                <div style="padding:8px;color:coral;font-size:large">
+                                    <strong>
+                                        Location
+                                    </strong>
+                                </div>
+                                <div style="font-size:small;padding:4px;color:white">Eldoret Town</div>
+                                <div style="font-size:small;padding:4px;color:white">Kapsoya</div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3  col-6 ">
+                            <div style="padding:8px">
+                                <div style="padding:8px;color:coral;font-size:large">
+                                    <strong>
+                                        About
+                                    </strong>
+                                </div>
+                                <div style="font-size:small;padding:4px;color:white">About ECAN-CRF</div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3  col-6 ">
+                            <div style="padding:8px">
+                                <div style="padding:8px;color:coral;font-size:large">
+                                    <strong>
+                                        Social Media
+                                    </strong>
+                                </div>
+                                <div style="font-size:small;padding:4px;color:white">Facebook</div>
+                                <div style="font-size:small;padding:4px;color:white">Twitter</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+            </script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+            </script>
+        </environment>
+
+
+        <script>
+
+    function printAllUsersForm() {
+        printJS({
+            printable: 'printAllUsersdiv', type: 'html', targetStyles: ['*'],
+           // header:'Header Here',
+            header: '<div style="padding-Bottom:50px;font-family:Calibri;top:0" ><div style="font-size:large;text-align:center;"><h1 style="font-size:40px">@ECAN_CRF.Controllers.HomeController.Businessname</h1></div><div style="font-size:large;padding:4px;text-align:center">Address:@ECAN_CRF.Controllers.HomeController.Address,</div><div style="font-size:large;padding:4px;text-align:center">Tel: @ECAN_CRF.Controllers.HomeController.FirstTell/@ECAN_CRF.Controllers.HomeController.secondtTell</div><div style="font-size:large;padding:4px;text-align:center">Emai: @ECAN_CRF.Controllers.HomeController.businessemail,</div><div style="font-size:large;padding:4px;text-align:center">website: @ECAN_CRF.Controllers.HomeController.website .</div></div>',
+            honorColor: true,
+            documentTitle: 'ECAN_CRF',
+            targetStyles: ['*'],
+
+        });
+        //   { printable: 'images/print-01-highres.jpg', type: 'image', header: 'My cool image header' }
+            }
+            function printStickers() {
+        printJS({
+            printable: 'printstickersdiv', type: 'html', targetStyles: ['*'],
+           // header:'Header Here',
+          //  header: '<div style="padding-Bottom:50px;font-family:Calibri;top:0" ><div style="font-size:large;text-align:center;"><h1 style="font-size:40px">@ECAN_CRF.Controllers.HomeController.Businessname</h1></div><div style="font-size:large;padding:4px;text-align:center">Address:@ECAN_CRF.Controllers.HomeController.Address,</div><div style="font-size:large;padding:4px;text-align:center">Tel: @ECAN_CRF.Controllers.HomeController.FirstTell/@ECAN_CRF.Controllers.HomeController.secondtTell</div><div style="font-size:large;padding:4px;text-align:center">Emai: @ECAN_CRF.Controllers.HomeController.businessemail,</div><div style="font-size:large;padding:4px;text-align:center">website: @ECAN_CRF.Controllers.HomeController.website .</div></div>',
+            honorColor: true,
+            documentTitle: 'ECAN_CRF',
+            targetStyles: ['*'],
+
+        });
+        //   { printable: 'images/print-01-highres.jpg', type: 'image', header: 'My cool image header' }
+    }
+        </script>
+
+        <script src="~/javascript/JavaScript.js"></script>
+        <script src="~/js/site.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <ejs-scripts></ejs-scripts>
+        @RenderSection("Scripts", required: false)
+    </div>
+</body>
+</html>

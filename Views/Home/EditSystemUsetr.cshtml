@@ -1,0 +1,110 @@
+﻿@model ECAN_CRF.Models.Users
+
+
+
+
+
+@using Syncfusion.EJ2
+@using Newtonsoft.Json
+
+<link href="~/Syncfussion/styles/material.css" rel="stylesheet" />
+<script src="~/Syncfussion/scripts/ej2.min.js"></script>
+
+@{
+
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<style>
+    .form-control_custom {
+        padding: 6px;
+        border-radius: 8px;
+        border: solid 1px orange;
+        box-shadow: 0 1px 8px 0 #FFC46C;
+        color: #178201;
+        width: 100%;
+    }
+
+        .form-control_custom:focus {
+            border: solid 1px transparent;
+        }
+</style>
+
+<div class="container-fluid">
+
+    <div style="text-align:left;font-family:'Century Gothic';font-size:large;color:#0C0648;font-weight:bold;padding:8px">
+        Edit Systmen User
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+
+
+            </div>
+            <div class="col-md-5">
+                <div style="background-color:white;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);margin:2px;padding:8px;border-radius:8px">
+                    <form asp-action="UserEdit" asp-controller="Home" method="post">
+                        <div style="padding:8px;;text-align:center">
+                            <input type="hidden" asp-for="strId" />
+                            <input type="hidden" asp-for="strPassword" />
+
+                            <img src="~/Icons/ProfilePic.png" style="height:70px;width:70px;border-radius:50%" class="img-fluid" />
+                            <div style="font-size:small;color:gray">@Model.strName</div>
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="strName" style="color:gray;font-size:small"></label>
+                            <input asp-for="strName" required placeholder="Full Name" class="form-control_custom" />
+                            <span asp-validation-for="strName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="strUsername" style="color:gray;font-size:small"></label>
+                            <input asp-for="strUsername" required placeholder="Full Name" class="form-control_custom" />
+                            <span asp-validation-for="strUsername" class="text-danger"></span>
+                        </div>
+                        <div style="margin-bottom:8px">
+                            <div class="padding-top">
+                                <ejs-dropdownlist id="Role" ejs-for="strRole" required filterBarPlaceholder="Search" allowFiltering="true" filtering="RoleFunction" placeholder="Select a Role" popupHeight="300px" dataSource="@ViewBag.Role">
+                                    <e-dropdownlist-fields text="Role" value="Role"></e-dropdownlist-fields>
+                                </ejs-dropdownlist>
+
+                            </div>
+                            <script>
+                            function RoleFunction(e) {
+            var query = new ej.data.Query();
+         query = (e.text !== '') ? query.where('Role', 'contains', e.text, true) : query;
+            e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Role)), query);
+    }
+
+                            </script>
+                        </div>
+                        <div class="form-group form-check" hidden>
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="isDeleted" /> @Html.DisplayNameFor(model => model.isDeleted)
+                            </label>
+                        </div>
+
+
+
+                        <div class=" text-center" style="text-align:center;margin-top:8px">
+                            <div style="margin-top:24px;margin-bottom:24px">
+                                <button type="submit" style="color:white;background-color:coral;padding:6px;border:none;border-radius:30px;width:100%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)"> Save Changes  </button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<ejs-scripts></ejs-scripts>
+
+

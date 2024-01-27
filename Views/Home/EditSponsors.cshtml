@@ -1,0 +1,84 @@
+﻿@model ECAN_CRF.Models.Sponsers
+
+@{
+
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+<style>
+    .form-control_custom {
+        padding: 6px;
+        border-radius: 8px;
+        border: solid 1px orange;
+        box-shadow: 0 1px 8px 0 #FFC46C;
+        color: #178201;
+        width: 100%;
+    }
+
+        .form-control_custom:focus {
+            border: solid 1px transparent;
+        }
+</style>
+
+<div class="container-fluid">
+
+    <div style="text-align:left;font-family:'Century Gothic';font-size:large;color:#0C0648;font-weight:bold;padding:8px">
+        Update  Sponser Info
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+
+ </div>
+        <div class="col-md-6">
+            <div style="background-color:white;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);margin:2px;padding:8px;border-radius:8px">
+                <form asp-action="EditSponsors" asp-controller="Home" method="post" enctype="multipart/form-data">
+                    <div style="padding:8px;;text-align:center">
+                        <img src="~/Icons/deal.png" style="max-height:200px" class="img-fluid" />
+                    </div>
+                    <input asp-for="strId" hidden />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+
+                        <input asp-for="stName" required placeholder="Full Name" class="form-control_custom" />
+                        <span asp-validation-for="stName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Image</label>
+                        <input asp-for="ImageFile" required accept="images/*" class="form-control_custom" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+
+                        <input asp-for="stCountry" required placeholder="country/Location" class="form-control_custom" />
+                        <span asp-validation-for="stCountry" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check" hidden>
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                        </label>
+                    </div>
+
+                    <div class=" text-center" style="text-align:center;margin-top:8px">
+
+
+                        <div style="margin-top:24px;margin-bottom:24px">
+                            <button type="submit" style="color:white;background-color:coral;padding:6px;border:none;border-radius:30px;width:100%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)"> Save Changes </button>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+
+ </div>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,210 @@
+﻿@model ECAN_CRF.Models.Sponsers
+
+@{
+
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+
+
+
+
+
+<style>
+    .form-control_custom {
+        padding: 6px;
+        border-radius: 8px;
+        border: solid 1px orange;
+        box-shadow: 0 1px 8px 0 #FFC46C;
+        color: #178201;
+        width: 100%;
+    }
+
+        .form-control_custom:focus {
+            border: solid 1px transparent;
+        }
+</style>
+
+<div class="container-fluid">
+
+    <div style="text-align:left;font-family:'Century Gothic';font-size:large;color:#0C0648;font-weight:bold;padding:8px">
+        Add new Sponser
+    </div>
+    <div class="row">
+
+        <div class="col-md-4">
+            <div style="background-color:white;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);margin:2px;padding:8px;border-radius:8px">
+                <form asp-action="SponsorsCreate" asp-controller="Home" method="post" enctype="multipart/form-data">
+                    <div style="padding:8px;;text-align:center">
+                        <img src="~/Icons/deal.png" style="max-height:200px" class="img-fluid" />
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                    
+                        <input asp-for="stName" required placeholder="Full Name" class="form-control_custom" />
+                        <span asp-validation-for="stName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Image</label>
+                        <input asp-for="ImageFile" required accept="images/*" class="form-control_custom" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        
+                        <input asp-for="stCountry" required placeholder="country/Location" class="form-control_custom" />
+                        <span asp-validation-for="stCountry" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check" hidden>
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                        </label>
+                    </div>
+
+                    <div class=" text-center" style="text-align:center;margin-top:8px">
+
+
+                        <div style="margin-top:24px;margin-bottom:24px">
+                            <button type="submit" style="color:white;background-color:coral;padding:6px;border:none;border-radius:30px;width:100%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)"> Add Sponsor </button>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            @if (TempData["success"] != null)
+            {
+                <div class="alert alert-success">
+                    <strong>Success!!..</strong>@TempData["success"]
+                </div>
+            }
+            @if (TempData["Err"] != null)
+            {
+                <div class="alert alert-danger">
+                    <strong>Opps!!..</strong>@TempData["Err"]
+                </div>
+            }
+            <div style="text-align:center">
+                <div style="font-size:x-large;color:black;font-family:Calibri">
+                    All Sponsers
+                </div>
+                <div style="font-size:small;color:gray;font-family:Calibri">
+                    List of all Sponsers 
+                </div>
+            </div>
+            <partial name="_Search" />
+            @if (ViewBag.Sponsors.Count != 0)
+            {
+                <div style="width:100%;overflow-x:auto;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)">
+                    <table class=" table-sm table-borderless text-black table-responsive-sm text-black" style="width:100%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)">
+                        <tbody id="myUL">
+                            @foreach (var item in ViewBag.Sponsors)
+                            {
+
+                                <tr style="background-color:white;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);color:black;border-radius:8px;padding:4px;height:auto;margin-top:4px;">
+                                    <td style="width:250px;text-align:left">
+                                        <b class="text-capitalize">
+
+                                            <div class="media">
+                                                <div class="media-left" >
+                                                    @*<img src="~/Icons/ProfilePic.png" class="media-object" style="width:30px">*@
+                                                    <img src="@item.stImageURl" class="media-object" style="width:30px;margin-top:4px">
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="text-capitalize" style="margin-left:8px">
+                                                        @item.stName
+                                                    </div>
+                                                    <small style="font-size:small;font-family:Calibri;color:gray;margin-left:8px">
+                                                        Name
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </b>
+
+                                    </td>
+                                    <td style="min-width:100px">
+                                        <div style="font-size:large;font-family:Calibri">
+                                            @item.stCountry
+                                        </div>
+                                        <div style="font-size:x-small;font-family:Calibri;color:gray">
+                                           country/location
+                                        </div>
+                                    </td>
+
+
+                                    <td style="min-width:60px">
+                                        <a asp-action="EditSponsors" asp-route-id="@item.strId" >
+                                            <div style="background-color:coral;color:white;padding:4px;border-radius:30px;text-align:center;margin-top:8px">
+                                                <i class="fa fa-pen" aria-hidden="true"></i> <span>Edit</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td style="min-width:90px">
+
+
+                                        <a asp-action="DeleteCenter" data-toggle="modal" data-target="#Delete_@item.strId" style="color:red" asp-route-id="@item.strId">
+                                            <div style="background-color:palevioletred;color:white;padding:4px;border-radius:30px;text-align:center;margin-top:8px">
+
+                                                <i class="fa fa-trash" aria-hidden="true"></i> <span>Remove</span>
+                                            </div>
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                              
+                                <!-- Modal delete -->
+                                <div id="Delete_@item.strId" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div style="font-size:large;font-weight:bold" class="modal-title text-danger">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Remove Sponsor
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-body">
+                                                <div style="font-size:large;font-weight:bold;text-align:center" class="modal-title">@item.stName</div>
+
+                                                <div class="alert alert-danger">Hey you are about to remove this Sponsor from the system.Are you sure you want to continue??</div>
+                                            </div>
+                                            <form asp-action="DeleteSponsor" asp-controller="Home">
+                                                <input type="hidden" name="type" value="user" />
+                                                <input type="hidden" name="id" value="@item.strId" />
+                                                <div class="modal-footer">
+                                                    <div class=" btn-success btn-sm" data-dismiss="modal">Cancel</div>
+                                                    <input type="submit" id="completebutton" value="REMOVE SPONSOR " class=" btn-danger btn-sm" />
+
+                                                </div>
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    No Registered farmers in the system
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

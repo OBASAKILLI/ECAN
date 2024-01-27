@@ -1,0 +1,47 @@
+﻿@model ECAN_CRF.Models.Sponsers
+
+@{
+    ViewData["Title"] = "EditSponsers";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h1>EditSponsers</h1>
+
+<h4>Sponsers</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditSponsers">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="strId" />
+            <div class="form-group">
+                <label asp-for="stName" class="control-label"></label>
+                <input asp-for="stName" class="form-control" />
+                <span asp-validation-for="stName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="stImageURl" class="control-label"></label>
+                <input asp-for="stImageURl" class="form-control" />
+                <span asp-validation-for="stImageURl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="stCountry" class="control-label"></label>
+                <input asp-for="stCountry" class="form-control" />
+                <span asp-validation-for="stCountry" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

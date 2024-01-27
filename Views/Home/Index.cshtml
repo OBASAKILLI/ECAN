@@ -1,0 +1,175 @@
+﻿@model ECAN_CRF.Models.Users
+@{
+    Layout = "~/Views/Shared/_LoginPage.cshtml";
+}
+<style>
+    .textttt {
+        color: #FFFFFF;
+        text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+    }
+
+
+    .demo-wrap {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .demo-bg {
+        opacity: 0.8;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+    }
+
+    .demo-content {
+        position: relative;
+    }
+</style>
+
+<body oncontextmenu="return false;" class="demo-wrap" style=" background-color:red;">
+    <img class="demo-bg"
+         src="~/Icons/ecanbackground.jpg"
+         alt="">
+    <div class="demo-content" style="text-align:center">
+        <style>
+            .form-control_custom {
+                padding: 6px;
+                border-radius: 8px;
+                border: solid 1px orange;
+            }
+
+                .form-control_custom:focus {
+                    border: solid 1px transparent;
+                }
+        </style>
+        <div class="container-fluid ">
+
+            @*<img src="~/Icons/121421-login.gif" class="img-fluid" />*@
+
+            <div class="row">
+                <div class="col-sm-6 " style="text-align:center">
+                    <img src="~/Icons/ECAN_CRF.jpeg" class="img-fluid " style="max-height:250px" />
+
+                    <div style="text-align:center;margin-top:16px;font-size:small">
+                        <div style="font-family:Calibri;color:gray">
+                            @ECAN_CRF.Controllers.HomeController.Address
+                        </div>
+                        <div style="font-family:Calibri;color:gray">
+                            Tel: @ECAN_CRF.Controllers.HomeController.FirstTell / @ECAN_CRF.Controllers.HomeController.secondtTell
+                        </div>
+                        <div style="font-family:Calibri;color:gray">
+                            Website:  <a href="https://www.ecankenya.com/">www.ecankenya.com</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-6 ">
+                    <div class="">
+                        @using (Html.BeginForm("LoginUser", "Home", FormMethod.Post, new { role = "form" }))
+                        {
+                            <div style="padding:8px;">
+                                <div style="text-align:center;font-family:'Century Gothic';font-size:xx-large;color:#188C01;font-weight:bold">
+                                    Welcome back
+                                </div>
+                            </div>
+                            <input type="text" asp-for="strUsername" class="form-control_custom" placeholder="Username" style="box-shadow: 0 1px 8px 0 #FFC46C;color:#178201;width:100%" />
+                            <br />
+                            <input type="password" asp-for="strPassword" class="form-control_custom" placeholder="Passwors" style="box-shadow: 0 1px 8px 0 #FFC46C;color:#178201;margin-top:24px;width:100%" />
+                            <div class="row text-center" style="text-align:center;margin-top:24px">
+                                <div class="col-3">
+
+                                </div>
+                                <div class="col-6">
+                                    <div>
+                                        <button type="submit" style="color:white;background-color:#0f256e;padding:6px;border:none;border-radius:30px;width:100%">Sign In</button>
+
+                                    </div>
+                                </div>
+                                <div class="col-3">
+
+                                </div>
+                            </div>
+                        }
+
+                        <div style="margin-top:8px">
+                            @if (TempData["success"] != null)
+                            {
+                                <div class="alert alert-success alert-sm ">
+                                    <strong>Success!!..</strong>@TempData["success"]
+                                </div>
+                            }
+                            @if (TempData["Err"] != null)
+                            {
+                                <div class="alert alert-danger alert-sm">
+                                    <strong>Opps!!..</strong>@TempData["Err"]
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <form></form>
+                </div>
+            </div>
+
+            <div style="height:20px" class="d-none d-lg-block"></div>
+
+            <div class="row" style="text-align:center">
+                <div class="col-md-6" style="text-align:center">
+
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                        </div>
+                        <div class="col-sm-6">
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <img src="~/Icons/centerof.webp" style="width:150px;border-radius:8px" class="img-fluid" />
+                                    </td>
+                                    <td style="text-align:left">
+                                        <div style="font-size:large;color:black;padding:4px;margin-top:4px">A Centre for Academic Excellence</div>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+
+                        </div>
+                    </div>
+
+
+                    <div style="font-size:small;color:gray">Jim Shelburne School is more than just a modern ... </div>
+                </div> <div class="col-md-6" style="text-align:center">
+
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                        </div>
+                        <div class="col-sm-6">
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <img src="~/Icons/agro.webp" style="width:150px;border-radius:8px" class="img-fluid" />
+                                    </td>
+                                    <td style="text-align:left">
+                                        <div style="font-size:large;color:black;padding:4px;margin-top:4px">Agricultural Empowerment</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+
+                        </div>
+                    </div>
+                    <div style="font-size:small;color:gray">Over 300 households, around 400 students from a...</div>
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+
+</body>
+

@@ -1,0 +1,165 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using Newtonsoft.Json
+@using KILI.Session;
+
+@{ 
+    var image = "Imageurl";
+    var name = HttpContextAccessor.HttpContext.Session.GetString("Name");
+    var desc = "Desc";
+    var Connected = "Connected";
+}
+<!-- Left side column. contains the logo and sidebar -->
+@*<aside class="main-sidebar" style="background-color:white;color:black;">*@
+<aside class="main-sidebar" style="background-color:white;color:white;box-shadow: 1px 6px 22px 3px rgba(0,0,0,0.1);">
+
+    <!-- sid;white-sbar: style can be found in sidebar.less -->
+    <section class="sidebar" style="height: auto;">
+
+        <ul class="sidebar-menu treeview" data-widget="tree">
+
+            <li class="treeview" style="height: auto;color:black">
+                <a asp-action="HomePage" onclick="reload()" asp-controller="Home">
+                    <i style="color:black" class="fal fa-tachometer-alt-slowest"></i>
+                    <span style="color:black">
+                        <b>Dashboard</b>
+
+                    </span>
+                </a>
+                @if (User.IsInRole("Field Worker") == true)
+                {
+                    <script>
+                        function reload() {
+
+                            window.location = 'http://ecancrf-001-site1.anytempurl.com/Home/FieldworkerDashboard';
+                        }
+
+                    </script>
+                }
+                else
+                {
+                    <script>
+                        function reload() {
+
+                            window.location = 'http://ecancrf-001-site1.anytempurl.com/Home/Dashboard';
+                        }
+
+                    </script>
+                }
+
+            </li>
+            <li class="treeview" style="height: auto;color:black">
+                <a href="#">
+                    <img src="~/Icons/graduated.png" style="height:24px;width:auto;" />
+
+                    <span style="color:black">Students <br /><span style="margin-left:24px;font-size:x-small">Manage Students Info</span></span>
+                    <span class="pull-right-container">
+                        <i style="color:black" class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li>
+                        <a asp-action="Students" asp-controller="Home" asp-route-Id="">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            View Students
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
+            @if (User.IsInRole("Field Worker") == false)
+            {
+                <li class="treeview" style="height: auto;color:black">
+                    <a href="#">
+                        <img src="~/Icons/focus.png" style="height:24px;width:auto;" />
+
+                        <span style="color:black">Centers <br /><span style="margin-left:24px;font-size:x-small">Manage Center Info</span></span>
+                        <span class="pull-right-container">
+                            <i style="color:black" class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" style="display: none;">
+                        <li>
+                            <a asp-action="Cenyters" asp-controller="Home" asp-route-Id="">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                View Centers
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </li>
+                <li class="treeview" style="height: auto;color:black">
+                    <a href="#">
+                        <img src="~/Icons/deal.png" style="height:24px;width:auto;" />
+
+                        <span style="color:black">Sponsors <br /><span style="margin-left:24px;font-size:x-small">Manage Sponsor Info</span></span>
+                        <span class="pull-right-container">
+                            <i style="color:black" class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" style="display: none;">
+                        <li>
+                            <a asp-action="Sponsors" asp-controller="Home" asp-route-Id="">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                View Sponsors
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+                <li class="treeview" style="height: auto;color:black">
+                    <a href="#">
+                        <img src="~/Icons/school.png" style="height:24px;width:auto;" />
+
+                        <span style="color:black">Schools <br /><span style="margin-left:24px;font-size:x-small">Manage Schools Info</span></span>
+                        <span class="pull-right-container">
+                            <i style="color:black" class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" style="display: none;">
+                        <li>
+                            <a asp-action="Schools" asp-controller="Home" asp-route-Id="">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                View Schools
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </li>
+                <li class="treeview" style="height: auto;color:black">
+                    <a href="#">
+                        <img src="~/Icons/group.png" style="height:24px;width:auto;" />
+
+                        <span style="color:black">Users <br /><span style="margin-left:24px;font-size:x-small">Manage System Users</span></span>
+                        <span class="pull-right-container">
+                            <i style="color:black" class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" style="display: none;">
+                        <li>
+                            <a asp-action="SystemUsers" asp-controller="Home" asp-route-Id="">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                Manage Users
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+            }
+
+
+                <li class="header" style="background-color:black;color:white">Other Tools</li>
+
+            </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
+<script src="~/dist/js/adminlte.min.js"></script>

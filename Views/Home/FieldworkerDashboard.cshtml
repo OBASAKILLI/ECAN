@@ -1,0 +1,224 @@
+﻿@model General
+@{
+    ViewData["Title"] = "UserHomePage";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<link href="~/Syncfussion/styles/material.css" rel="stylesheet" />
+<script src="~/Syncfussion/scripts/ej2.min.js"></script>
+@using Syncfusion.EJ2
+@using Newtonsoft.Json
+<style>
+    .div {
+        border-radius: 8px;
+        box-shadow: 8px 8px 17px #f2f2f2, -8px -8px 17px #ffffff;
+        margin-top: 8px
+    }
+
+    .onerow:hover {
+        box-shadow: 8px 8px 17px #f2f2f2, -8px -8px 17px #ffffff;
+        border-radius: 8px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-9  col-12">
+            @*<div style="font-size:xx-large;font-family:Calibri;padding:4px;font-weight:bold">
+                    Dashboard
+                </div>*@
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-4 col-6">
+                        <a asp-action="Students">
+                            <div style="background-color:white;text-align:center;font-family:Calibri;box-shadow: 1px 8px 8px 0 rgba(0,0,0,0.2);border-left:solid 4px  #ffb5b1 " class="div">
+                                <img src="~/Icons/graduated.png" style="height:40px;width:auto;" />
+                                <div style="font-size:small;color:gray;padding:4px">Students</div>
+                                <div style="font-size:x-large;color:black">  @Model.studens.Count().ToString("#,##0")</div>
+                            </div>
+                        </a>
+                    </div>
+                   
+                    <div class="col-md-4 col-6">
+                        <a asp-action="Sponsors">
+                            <div style="background-color:white;text-align:center;font-family:Calibri;box-shadow: 1px 8px 8px 0 rgba(0,0,0,0.2);border-left:solid 4px  #b1d5ff " class="div">
+                                <img src="~/Icons/deal.png" style="height:40px;width:auto;" />
+                                <div style="font-size:small;color:gray;padding:4px"> Sponsors</div>
+                                <div style="font-size:x-large;color:black">  @Model.sponsers.Count().ToString("#,##0")</div>
+                            </div>
+                        </a>
+                    </div>
+                    @*<div class="col-md-3 col-6">
+                            <a asp-action="Schools">
+                                <div style="background-color:white;text-align:center;font-family:Calibri;box-shadow: 1px 8px 8px 0 rgba(0,0,0,0.2);border-left:solid 4px   #a0fcae  " class="div">
+                                    <img src="~/Icons/school.png" style="height:40px;width:auto;" />
+                                    <div style="font-size:small;color:gray;padding:4px"> Schools</div>
+                                    <div style="font-size:x-large;color:black"> @Model.schools.Count().ToString("#,##0")</div>
+                                </div>
+                            </a>
+                        </div>*@
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div style="text-align:left;margin-top:8px">
+                    <div style="font-size:large;font-family:Calibri">
+                        All Students
+                    </div>
+                    <div style="font-size:small;font-family:Calibri;color:gray">
+                        List of all students from diffrent centers
+                    </div>
+                </div>
+                <partial name="_Search" />
+                @if (ViewBag.Students.Count != 0)
+                {
+                    <div style="width:100%;overflow-x:auto;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)">
+                        <table class=" table-sm table-borderless text-black table-responsive-sm text-black" style="width:100%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)">
+                            <tbody id="myUL">
+                                @foreach (var item in ViewBag.Students)
+                                {
+
+                                    <tr style="background-color:white;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);color:black;border-radius:8px;padding:4px;height:auto;margin-top:4px;">
+
+                                        <td style="width:250px;text-align:left">
+                                            <b class="text-capitalize">
+                                                <a asp-action="StudentDetails" asp-route-id="@item.strId">
+                                                    <div class="media">
+                                                        <div class="media-left">
+                                                            @*<img src="~/Icons/ProfilePic.png" class="media-object" style="width:30px">*@
+                                                            <img src="@item.ImageUrl" class="media-object" style="width:30px;margin-top:4px">
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <div class="text-capitalize" style="margin-left:8px">
+                                                                @item.strName
+                                                            </div>
+                                                            <small style="font-size:x-small;font-family:Calibri;color:gray;margin-left:8px">
+                                                                Adm/no:  @item.strADNo
+                                                            </small>
+                                                        </div> <div class="media-body">
+                                                            <div class="text-capitalize" style="margin-left:8px">
+                                                                @item.strFeePaid.ToShortDateString()
+                                                            </div>
+                                                            <small style="font-size:x-small;font-family:Calibri;color:gray;margin-left:8px">
+                                                                Fee Payment
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </b>
+
+                                        </td>
+                                        <td style="min-width:100px">
+                                            <div style="font-size:medium;font-family:Calibri">
+                                                @item.strSchoolId
+                                            </div>
+                                            <div style="font-size:x-small;font-family:Calibri;color:gray">
+                                                @item.strCenterId
+                                            </div>
+                                        </td>
+                                        <td style="min-width:150px">
+                                            <div style="font-size:medium;font-family:Calibri">
+                                                @item.strSponserId
+                                            </div>
+                                            <div style="font-size:x-small;font-family:Calibri;color:gray">
+                                                sponsor
+                                            </div>
+                                        </td>
+
+                                        <td style="min-width:60px">
+                                            <a asp-action="StudentsEdit" asp-route-id="@item.strId">
+                                                <div style="background-color:coral;color:white;padding:4px;border-radius:30px;text-align:center;margin-top:8px">
+                                                    <i class="fa fa-pen" aria-hidden="true"></i> <span>Edit</span>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td style="min-width:90px">
+                                            <a asp-action="DeleteStudenty" data-toggle="modal" data-target="#Delete_@item.strId" style="color:red" asp-route-id="@item.strId">
+                                                <div style="background-color:palevioletred;color:white;padding:4px;border-radius:30px;text-align:center;margin-top:8px">
+
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> <span>Remove</span>
+                                                </div>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+
+                                    <!-- Modal delete -->
+                                    <div id="Delete_@item.strId" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div style="font-size:large;font-weight:bold" class="modal-title text-danger">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i> Remove Student
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div style="font-size:large;font-weight:bold;text-align:center" class="modal-title">@item.strName</div>
+
+                                                    <div class="alert alert-danger">Hey you are about to remove this Student from the system.Are you sure you want to continue??</div>
+                                                </div>
+                                                <form asp-action="DeleteStudenty" asp-controller="Home">
+
+                                                    <input type="hidden" name="id" value="@item.strId" />
+                                                    <div class="modal-footer">
+                                                        <div class=" btn-success btn-sm" data-dismiss="modal">Cancel</div>
+                                                        <input type="submit" id="completebutton" value="REMOVE STUDENT " class=" btn-danger btn-sm" />
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger">
+                        No Students record Found
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-lg-3  col-12">
+
+            <div style="padding:4px;margin:2px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);background-color:white;border-radius:8px">
+
+                @{
+                    var piecenter = new
+                    {
+                        x = "50%",
+                        y = "50%"
+                    };
+
+                }
+                <div style="text-align:end">
+                    <ejs-accumulationchart id="ansbansb" height="55%" width="100%" title="Center Statistics" load="load" enableAnimation="false">
+                        <e-accumulationchart-center x="50%" y="55%"></e-accumulationchart-center>
+                        <e-accumulationchart-tooltipsettings enable="true"></e-accumulationchart-tooltipsettings>
+                        <e-accumulationchart-legendsettings visible="false">
+                        </e-accumulationchart-legendsettings>
+                        <e-accumulation-series-collection>
+                            <e-accumulation-series dataSource="ViewBag.dataSourcewww" xName="xValue" yName="yValue" name=" " radius="90%" startAngle="0" endAngle="360" explodeIndex="5" explode="true" explodeOffset="10%">
+                                <e-accumulationseries-datalabel name="text" visible="true">
+                                    <e-font fontWeight="600"></e-font>
+                                </e-accumulationseries-datalabel>
+                            </e-accumulation-series>
+                        </e-accumulation-series-collection>
+                    </ejs-accumulationchart>
+                </div>
+                <script>
+                    function load(args) {
+                        var indexedTheme = location.hash.split('/')[1];
+                        indexedTheme = indexedTheme ? indexedTheme : 'Material';
+                        args.accumulation.theme = (indexedTheme.charAt(0).toUpperCase() + indexedTheme.slice(1).replace(/-dark/i, 'Dark').replace(/contrast/i, 'Contrast'));
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+

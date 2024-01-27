@@ -1,0 +1,148 @@
+﻿@model ECAN_CRF.Models.Studens
+
+@{
+    ViewData["Title"] = "StudentDetails";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+ 
+<div class="container-fluid" style="font-family:Calibri">
+    <div style="font-size:x-large;color:black;font-family:Calibri">
+        Student Info
+    </div>
+    <div style="font-size:small;color:gray;font-family:Calibri">
+        Information about @Model.strName
+    </div>
+    <div class="row">
+        <div class="col-sm-3" style="margin-top:24px">
+            <img src="@Model.ImageUrl" class="img-fluid" />
+        </div>
+        <div class="col-sm-5">
+
+            <dl class="row" style="text-align:left">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.strName)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.strName)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.strADNo)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.strADNo)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.strCenterId)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.strCenterId)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.strSchoolId)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.strSchoolId)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.strSponserId)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.strSponserId)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.strGuarduianName)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.strGuarduianName)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.strguardianPhone)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.strguardianPhone)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.strCgrade_Class)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.strCgrade_Class)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.strADMDate)
+                </dt>
+                <dd class="col-sm-8">
+                    @Model.strADMDate.ToShortDateString()
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.strDateOfBirth)
+                </dt>
+                <dd class="col-sm-8">
+                    @Model.strDateOfBirth.ToShortDateString()
+                </dd>
+
+            </dl>
+
+        </div>
+        <div class="col-sm-4" style="margin-top:24px">
+            <table style="width:100%;">
+                @if (ViewBag.Events.Count != 0)
+                {
+                    @foreach (var item in ViewBag.Events)
+                    {
+                        <tr style="background-color:white;border-radius:8px;padding:8px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);font-family:Calibri;padding:8px">
+                            <td>
+                                <a href="@item.ImageUrl" download="@item.ImageUrl">
+                                    <img src="@item.ImageUrl" onerror="this.src='/Icons/noimage.png'" class="img-fluid " style="max-height:100px" />
+                                </a>
+                            </td>
+                       
+                            <td>
+                                <div style="color:gray;font-size:small;padding:8px;">@item.strDate.ToShortDateString()</div>
+                                <div>   @item.strEvent</div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr >
+                        <td colspan="2">
+                            <div class="alert text-danger">
+                                No Events record Found..
+                            </div>
+                        </td>
+                    </tr>
+                   
+                }
+
+            </table>
+       <hr />
+       <form asp-action="EventCreation" method="post" enctype="multipart/form-data">
+           <div class="form-group">
+
+               <input name="image" type="file" accept="images/*"  class="form-control_custom" />
+               <span asp-validation-for="ImageFile" class="text-danger"></span>
+           </div>
+<textarea rows="2" name="textarea" placeholder="typ any Event..." class="form-control"></textarea>
+           <input type="hidden" value="@Model.strId" name="studentId" />
+           <div style="margin-top:24px;margin-bottom:24px">
+               <button type="submit" style="color:white;background-color:coral;padding:6px;border:none;border-radius:30px;width:100%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)"> Add Last Event  </button>
+
+           </div>
+       </form>
+        
+        </div>
+    </div>
+
+
+    <div>
+        <a asp-action="StudentsEdit" asp-route-id="@Model.strId">Edit</a> |
+        <a asp-action="Students">Back to List</a>
+    </div>
+</div>
